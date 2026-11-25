@@ -1,0 +1,62 @@
+/* A true 16:9 screen: its outer edge follows the media, without an empty control tray. */
+.archive-layout:has(.cinema-screen) .site-header { border-bottom-color: transparent; }
+.archive-layout:has(.cinema-screen) .page-transition { display: grid; place-items: center; padding: 16px 0 32px; }
+.main-gallery.page-width {
+  position: relative; min-width: 0; margin: 0 auto;
+  width: min(calc(100% - var(--edge) * 2), calc((100svh - var(--header-height) - 48px) * 1.7777778));
+}
+.cinema-screen {
+  position: relative; width: 100%; aspect-ratio: 16 / 9; isolation: isolate;
+  overflow: hidden; background: var(--canvas); color: var(--ink); touch-action: pan-y;
+  cursor: grab; box-shadow: var(--screen-shadow); transition: box-shadow 280ms ease;
+}
+.cinema-screen:active { cursor: grabbing; }
+.cinema-screen:focus-visible { outline: 1px solid var(--accent); outline-offset: 5px; }
+.cinema-layer { position: absolute; inset: 0; z-index: 0; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 760ms cubic-bezier(.22,.61,.36,1), visibility 0s 760ms; }
+.cinema-layer[data-active="true"] { z-index: 1; opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
+.cinema-media { position: absolute; inset: 0; overflow: hidden; background: var(--canvas); }
+.cinema-visual { position: absolute; inset: 0; display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; max-height: 100%; object-fit: contain; object-position: center; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.cinema-project-link {
+  position: absolute; z-index: 4; left: 12px; bottom: 12px; display: grid; place-items: center;
+  width: 44px; height: 44px; padding: 12px; border: 1px solid #ffffff30;
+  border-radius: 50%; color: #fff; background: #0b0c1038; backdrop-filter: blur(10px);
+  cursor: pointer; text-decoration: none; transition: background-color 180ms ease, border-color 180ms ease;
+}
+.cinema-project-link:hover { background: #0b0c10a6; border-color: #ffffff80; }
+.cinema-project-link svg { width: 15px; height: 15px; }
+.cinema-project-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+@media (max-width: 899px) {
+  .archive-layout:has(.cinema-screen) .page-transition { place-items: start center; padding: 20px 0 24px; }
+  .main-gallery.page-width { width: min(calc(100% - var(--edge) * 2), calc((100svh - var(--header-height) - 44px) * 1.7777778)); }
+  .cinema-project-link { left: 8px; bottom: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { .cinema-layer, .cinema-screen, .cinema-project-link { transition: none; } }
+
+/* NAMS GALLERY — 2026-11-06 */
+/* The existing public shell owns the 16:9 frame and shared navigation geometry. */
+.gallery-public .gallery-room{height:auto;min-height:0;max-height:none;aspect-ratio:16/9;border:0;box-shadow:none;background:#f4f3ef;isolation:isolate;cursor:default;touch-action:pan-y}
+.gallery-public .gallery-room:active{cursor:default}
+.gallery-public .gallery-room:focus-visible{outline:2px solid var(--accent,var(--ink));outline-offset:8px}
+.gallery-public-back-wall,.gallery-public-side-wall,.gallery-public-floor{position:absolute;pointer-events:none}
+.gallery-public-back-wall{inset:0;background:radial-gradient(ellipse at 50% 24%,#faf9f6 0%,#eeede7 70%,#deddd6 100%)}
+.gallery-public-side-wall{inset:0 0 17% 86%;background:linear-gradient(100deg,#d9d8d1,#efeee9);clip-path:polygon(0 0,100% 0,100% 100%,0 86%)}
+.gallery-public-floor{inset:83% 0 0;background:linear-gradient(#c9c8bf,#deddd5 24%,#e9e8e2);clip-path:polygon(14% 0,86% 0,100% 100%,0 100%)}
+.gallery-public-fallback{position:absolute;left:50%;top:43%;width:72%;aspect-ratio:16/9;transform:translate(-50%,-50%);overflow:hidden;background:#17181a;box-shadow:0 16px 32px #25251e14}
+.gallery-public-artwork{display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;object-position:center;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.gallery-public-canvas{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 240ms ease}
+.gallery-public-canvas canvas{display:block;width:100%;height:100%}
+.gallery-public .gallery-room[data-renderer="webgl"] .gallery-public-canvas{opacity:1}
+.gallery-public .gallery-room[data-renderer="webgl"] .gallery-public-fallback{opacity:0;pointer-events:none}
+.gallery-public .gallery-room[data-renderer="webgl"] .gallery-public-back-wall,.gallery-public .gallery-room[data-renderer="webgl"] .gallery-public-side-wall,.gallery-public .gallery-room[data-renderer="webgl"] .gallery-public-floor{visibility:hidden}
+.gallery-public-link{position:absolute;left:14%;top:43%;width:72%;aspect-ratio:16/9;transform:translateY(-50%);z-index:2;display:block;border:0;background:transparent;cursor:pointer;text-decoration:none;-webkit-user-drag:none;transition:background 160ms ease}
+.gallery-public .gallery-room[data-renderer="webgl"] .gallery-public-link{left:var(--screen-left,14%);top:var(--screen-top,43%);width:var(--screen-width,72%);height:var(--screen-height,auto);aspect-ratio:auto;transform:none;clip-path:var(--screen-polygon,inset(0))}
+.gallery-public-link:hover{background:#ffffff05}
+.gallery-public-link:active{background:#00000008}
+.gallery-public-link:focus-visible{outline:0;background:#ffffff24;box-shadow:inset 0 0 0 8px #ffffffaa}
+@media(max-width:767px){
+  .gallery-public .gallery-room{background:var(--canvas);touch-action:pan-y}
+  .gallery-public .gallery-public-back-wall,.gallery-public .gallery-public-side-wall,.gallery-public .gallery-public-floor{display:none}
+  .gallery-public-fallback{inset:0;width:100%;height:100%;aspect-ratio:auto;transform:none;box-shadow:none}
+  .gallery-public-link{inset:0;width:100%;height:100%;aspect-ratio:auto;transform:none}
+}
+@media(prefers-reduced-motion:reduce){.gallery-public-canvas,.gallery-public-link{transition:none}}

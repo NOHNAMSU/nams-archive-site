@@ -1,0 +1,94 @@
+<!DOCTYPE html><!--rytzPks3CTyiUg1QiVn8d--><html lang="ko"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" as="image" href="/assets/brand/nams-logo.svg"/><link rel="stylesheet" href="/_next/static/css/de5ac5f8816f9595.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/webpack-7da9bf9c72fcece9.js"/><script src="/_next/static/chunks/4bd1b696-c023c6e3521b1417.js" async=""></script><script src="/_next/static/chunks/255-2005b055456c798b.js" async=""></script><script src="/_next/static/chunks/main-app-ee992a12acbeb48d.js" async=""></script><script src="/_next/static/chunks/619-ba102abea3e3d0e4.js" async=""></script><script src="/_next/static/chunks/394-9d90b70f501079b1.js" async=""></script><script src="/_next/static/chunks/app/layout-073f0bc294c08c9b.js" async=""></script><meta name="robots" content="noindex"/><title>404: This page could not be found.</title><title>NAMS ARCHIVE | 노남수</title><meta name="description" content="관찰하고, 기록하고, 경험을 디자인합니다. 노남수의 디자인 포트폴리오."/><link rel="icon" href="/assets/brand/nams-logo.svg" type="image/svg+xml"/><script src="/_next/static/chunks/polyfills-42372ed130431b0a.js" noModule=""></script><script id="nams-theme-bootstrap">/* Saved appearance with a soft reveal; the film remains a separate live layer. */
+(() => {
+  if (window.NamsTheme) return;
+  const root = document.documentElement;
+  const storageKey = 'nams-hero-theme';
+  const valid = value => value === 'dark' || value === 'light';
+  let saved;
+  try { saved = localStorage.getItem(storageKey); } catch {}
+  let mode = valid(saved) ? saved : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  let wantedMode = mode;
+  let activeTransition = null;
+  let settleTimer;
+  const apply = (next, persist = true) => {
+    mode = next;
+    root.dataset.theme = next;
+    root.style.colorScheme = next;
+    if (persist) { try { localStorage.setItem(storageKey, next); } catch {} }
+    window.dispatchEvent(new CustomEvent('nams:themechange', {detail:{theme:next}}));
+  };
+  const finish = () => { delete root.dataset.themeMotion; };
+  const set = (next, event) => {
+    if (!valid(next) || next === wantedMode) return;
+    wantedMode = next;
+    clearTimeout(settleTimer);
+    // A second click takes effect immediately rather than being discarded.
+    if (activeTransition) {
+      activeTransition.skipTransition();
+      apply(next);
+      return;
+    }
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const coarse = matchMedia('(pointer: coarse)').matches;
+    const canReveal = document.startViewTransition && window.CSS?.registerProperty
+      && !reduced && !coarse && innerWidth >= 768 && !document.hidden;
+    if (!canReveal) {
+      if (!reduced && !document.hidden) root.dataset.themeMotion = 'fade';
+      else finish();
+      apply(next);
+      settleTimer = setTimeout(finish, 520);
+      return;
+    }
+    const bounds = event?.currentTarget?.getBoundingClientRect();
+    const x = event?.clientX || (bounds ? bounds.left + bounds.width / 2 : innerWidth - 48);
+    const y = event?.clientY || (bounds ? bounds.top + bounds.height / 2 : 48);
+    root.style.setProperty('--theme-x', `${x}px`);
+    root.style.setProperty('--theme-y', `${y}px`);
+    root.style.setProperty('--theme-radius', `${Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y)) + 96}px`);
+    root.dataset.themeMotion = 'reveal';
+    try {
+      const transition = document.startViewTransition(() => apply(wantedMode));
+      activeTransition = transition;
+      transition.finished.catch(() => {}).finally(() => {
+        if (activeTransition !== transition) return;
+        activeTransition = null;
+        finish();
+      });
+    } catch {
+      activeTransition = null;
+      root.dataset.themeMotion = 'fade';
+      apply(next);
+      settleTimer = setTimeout(finish, 520);
+    }
+  };
+  window.NamsTheme = {get:() => mode, set};
+  apply(mode, false);
+  window.addEventListener('storage', event => {
+    if (event.key === storageKey && valid(event.newValue)) {
+      wantedMode = event.newValue;
+      activeTransition?.skipTransition();
+      apply(event.newValue, false);
+    }
+  });
+})();
+</script><script id="nams-locale-bootstrap">/* One saved language across the archive. Text updates through React after hydration. */
+(() => {
+  if (window.NamsLocale) return;
+  const key = 'nams-locale';
+  const valid = value => ['ko', 'ja', 'en'].includes(value);
+  let locale = 'ko';
+  try { const saved = localStorage.getItem(key); if (valid(saved)) locale = saved; } catch {}
+  const apply = (next, persist = true) => {
+    if (!valid(next)) return;
+    locale = next;
+    document.documentElement.lang = next;
+    if (persist) { try { localStorage.setItem(key, next); } catch {} }
+    window.dispatchEvent(new CustomEvent('nams:localechange', {detail:{locale:next}}));
+  };
+  window.NamsLocale = {get:() => locale, set:next => apply(next)};
+  apply(locale, false);
+  window.addEventListener('storage', event => {
+    if (event.key === key && valid(event.newValue)) apply(event.newValue, false);
+  });
+})();
+</script></head><body><div hidden=""><!--$--><!--/$--></div><div class="archive-layout"><a class="skip-link" href="#main-content">본문으로 건너뛰기</a><header class="site-header page-width"><a class="site-logo" aria-label="NAMS ARCHIVE 메인" href="/?project=gentlemonster-pocket"><img alt="NAMS ARCHIVE" width="134" height="74" decoding="async" data-nimg="1" style="color:transparent" src="/assets/brand/nams-logo.svg"/></a><nav class="site-nav" aria-label="주요 메뉴"><a href="/?project=gentlemonster-pocket">Main</a><a href="/work?project=gentlemonster-pocket">Work</a><a href="/about?project=gentlemonster-pocket">About</a><a href="/contact?project=gentlemonster-pocket">Contact</a></nav></header><div class="page-transition"><div style="font-family:system-ui,&quot;Segoe UI&quot;,Roboto,Helvetica,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;;height:100vh;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center"><div><style>body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}</style><h1 class="next-error-h1" style="display:inline-block;margin:0 20px 0 0;padding:0 23px 0 0;font-size:24px;font-weight:500;vertical-align:top;line-height:49px">404</h1><div style="display:inline-block"><h2 style="font-size:14px;font-weight:400;line-height:49px;margin:0">This page could not be found.</h2></div></div></div><!--$--><!--/$--></div><footer class="site-footer">NAMSARCHIVE</footer></div><script src="/_next/static/chunks/webpack-7da9bf9c72fcece9.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[2865,[\"619\",\"static/chunks/619-ba102abea3e3d0e4.js\",\"394\",\"static/chunks/394-9d90b70f501079b1.js\",\"177\",\"static/chunks/app/layout-073f0bc294c08c9b.js\"],\"ProjectSelectionProvider\"]\n3:I[5399,[\"619\",\"static/chunks/619-ba102abea3e3d0e4.js\",\"394\",\"static/chunks/394-9d90b70f501079b1.js\",\"177\",\"static/chunks/app/layout-073f0bc294c08c9b.js\"],\"SiteShell\"]\n4:I[9766,[],\"\"]\n5:I[8924,[],\"\"]\n6:I[4431,[],\"OutletBoundary\"]\n8:I[5278,[],\"AsyncMetadataOutlet\"]\na:I[4431,[],\"ViewportBoundary\"]\nc:I[4431,[],\"MetadataBoundary\"]\nd:\"$Sreact.suspense\"\nf:I[7150,[],\"\"]\n:HL[\"/_next/static/css/de5ac5f8816f9595.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"b\":\"rytzPks3CTyiUg1QiVn8d\",\"p\":\"\",\"c\":[\"\",\"_not-found\"],\"i\":false,\"f\":[[[\"\",{\"children\":[\"/_not-found\",{\"children\":[\"__PAGE__\",{}]}]},\"$undefined\",\"$undefined\",true],[\"\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/de5ac5f8816f9595.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"ko\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"suppressHydrationWarning\":true,\"children\":[\"$\",\"$L2\",null,{\"children\":[\"$\",\"$L3\",null,{\"children\":[\"$\",\"$L4\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L5\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]}]}]}]]}],{\"children\":[\"/_not-found\",[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L4\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L5\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[\"__PAGE__\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],null,[\"$\",\"$L6\",null,{\"children\":[\"$L7\",[\"$\",\"$L8\",null,{\"promise\":\"$@9\"}]]}]]}],{},null,false]},null,false]},null,false],[\"$\",\"$1\",\"h\",{\"children\":[[\"$\",\"meta\",null,{\"name\":\"robots\",\"content\":\"noindex\"}],[[\"$\",\"$La\",null,{\"children\":\"$Lb\"}],null],[\"$\",\"$Lc\",null,{\"children\":[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$d\",null,{\"fallback\":null,\"children\":\"$Le\"}]}]}]]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"s\":false,\"S\":true}\n"])</script><script>self.__next_f.push([1,"b:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n7:null\n"])</script><script>self.__next_f.push([1,"10:I[622,[],\"IconMark\"]\n9:{\"metadata\":[[\"$\",\"title\",\"0\",{\"children\":\"NAMS ARCHIVE | 노남수\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"관찰하고, 기록하고, 경험을 디자인합니다. 노남수의 디자인 포트폴리오.\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/assets/brand/nams-logo.svg\",\"type\":\"image/svg+xml\"}],[\"$\",\"$L10\",\"3\",{}]],\"error\":null,\"digest\":\"$undefined\"}\n"])</script><script>self.__next_f.push([1,"e:\"$9:metadata\"\n"])</script></body></html>
